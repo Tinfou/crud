@@ -33,5 +33,23 @@
             return false;
         }
     }
+    
+    function valid_image($image)
+    {
+        if($_FILES['image']['size'] <= 1000000){
+            $file_info = pathinfo($_FILES['image']['name']);
+            $extension = $file_info['extension'];
+            $allowed_extensions = ['jpg', 'jpeg', 'gif', 'png'];
+            if(in_array($extension, $allowed_extensions)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
 
 ?>
