@@ -1,5 +1,6 @@
-<?php include('db_connect.php');
-$id = $_GET['id_user'];
+<?php 
+    require('db_connect.php');
+    $id = $_GET['id_user'];
 ?>
 
 <?php
@@ -11,7 +12,7 @@ $id = $_GET['id_user'];
         $dossier_site = 'images/' .$image;
         move_uploaded_file($_FILES['image']['tmp_name'],$dossier_site); 
         $sql =" UPDATE `users` SET `nom`='$nom',`email`='$email',`phone`='$phone',`image`='$image' WHERE id_user = $id ";
-        $results = mysqli_query($connection,$sql);
+        $results = mysqli_query($connexion,$sql);
         if($results){
             header("Location:index.php");
         }
@@ -30,7 +31,7 @@ $id = $_GET['id_user'];
     
     if(isset($_GET['id_user'])){
     $sql = "SELECT * FROM users where id_user = $id ";
-    $results = mysqli_query($connection, $sql);
+    $results = mysqli_query($connexion, $sql);
     $result = mysqli_fetch_assoc($results);
     }
 ?>

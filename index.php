@@ -1,6 +1,4 @@
-<?php
-    include('db_connect.php');
-?>
+<?php require('db_connect.php');?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +20,7 @@
     </tr>
     <?php
         $sql = "select * from users";
-        $results = mysqli_query($connection,$sql);
+        $results = mysqli_query($connexion,$sql);
         while($result = mysqli_fetch_assoc($results)){
     ?>      
     <tr>
