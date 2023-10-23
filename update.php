@@ -23,7 +23,7 @@
             <p><input type="text" name="phone" value= "<?php echo $result['phone'] ?>"></p>
             <p><input type="email" name="email"  value= "<?php echo $result['email'] ?>"></p>
             <p><img src="images/<?php echo $result['image']; ?>" style="width: 60px; height: 60px;"><input type="file" name="image"></p>
-            <p><button type="submit">Modifier</button></p>
+            <p><button type="submit" name ="submit">Modifier</button></p>
         </form> 
     <p><a href="index.php">Liste</a></p>
     </body>
