@@ -36,13 +36,11 @@
                         $dossier_site = 'images/' .$image;
                         move_uploaded_file($_FILES['image']['tmp_name'],$dossier_site);
                     }   
-                    if(isset($nom) && isset($email) && isset($email) && isset($phone) && isset($image)){    
-                        $sql = "INSERT INTO `users`(`id_user`, `nom`, `email`, `phone`, `image`) VALUES (null,'$nom','$email','$phone','$image')";
-                        $execute_query = mysqli_query($connexion,$sql);
-                        if($execute_query){
-                            header("Location: index.php");
-                        } 
-                    }
+                    $sql = "INSERT INTO `users`(`id_user`, `nom`, `email`, `phone`, `image`) VALUES (null,'$nom','$email','$phone','$image')";
+                    $execute_query = mysqli_query($connexion,$sql);
+                    if($execute_query){
+                        header("Location: index.php");
+                    } 
                 }
             }
         ?>    
