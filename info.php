@@ -1,4 +1,13 @@
-<?php require('db_connect.php'); ?>
+<?php
+session_start();
+require('db_connect.php'); ?>
+
+<?php
+if (!isset($_SESSION['user_logged'])) {
+    header('Location: login.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,4 +1,13 @@
-<?php require('db_connect.php'); ?>
+<?php
+session_start();
+require('db_connect.php');
+?>
+
+<?php
+if (!isset($_SESSION['user_logged'])) {
+    header('Location: login.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -10,6 +19,7 @@
 </head>
 
 <body>
+
     <div class="md-12">
         <div class="bg-primary text-center">
             <h3 class="p-2">CRUD PHP</h3>
@@ -20,6 +30,7 @@
             <ul class="nav">
                 <li><a class="nav-link" href="index.php">Listes des utilisateurs</a></li>
                 <li><a class="nav-link" href="add.php">Ajouter des utilisateurs</a></li>
+                <li><a class="nav-link" href="deconnexion.php">Déconnexion</a></li>
             </ul>
         </nav>
     </div>

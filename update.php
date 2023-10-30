@@ -1,6 +1,12 @@
 <?php
+session_start();
 require('db_connect.php');
 require('functions.php');
+?>
+<?php
+if (!isset($_SESSION['user_logged'])) {
+    header('Location: login.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -34,6 +40,9 @@ require('functions.php');
         $result = mysqli_fetch_assoc($execute_query);
     }
     ?>
+    <p>tongasoa
+        <?php echo $_SESSION['user_logged']['nom']; ?>
+    </p>
     <div class="container p-4">
         <div class="d-flex justify-content-center">
             <form class="g-3" action="" method="post" enctype="multipart/form-data">
