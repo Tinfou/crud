@@ -34,7 +34,9 @@ if (!isset($_SESSION['user_logged'])) {
             </ul>
         </nav>
     </div>
+    <?php include('message.php') ?>
     <div class="container p-4">
+
         <div class="d-flex justify-content-center">
             <form class="g-3" action="add.php" method="post" enctype="multipart/form-data">
                 <div class="p-2 col-md-12">
@@ -54,32 +56,35 @@ if (!isset($_SESSION['user_logged'])) {
                     <input class="form-control" type="file" name="image" id="image">
                 </div>
                 <div class="col-md-12">
-                    <button class="w-100 mt-3 btn btn-primary" type="submit" name="submit">Ajouter</button>
+                    <button class="w-100 mt-3 btn btn-primary" type="submit">Ajouter</button>
                 </div>
             </form>
         </div>
         <?php
         if (isset($_POST['nom']) && !empty($_POST['nom']) && isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['phone']) && !empty($_POST['phone']) && isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
-            if (isset($_POST['submit'])) {
-                if (valid_name($_POST['nom'])) {
-                    $nom = $_POST['nom'];
-                }
-                if (valid_email($_POST['email'])) {
-                    $email = $_POST['email'];
-                }
-                if (valid_phone($_POST['phone'])) {
-                    $phone = $_POST['phone'];
-                }
-                if (valid_image($_FILES['image'])) {
-                    $image = $_FILES['image']['name'];
-                    $dossier_site = 'images/' . $image;
-                    move_uploaded_file($_FILES['image']['tmp_name'], $dossier_site);
-                }
-                $sql = "INSERT INTO `users`(`id_user`, `nom`, `email`, `phone`, `image`) VALUES (null,'$nom','$email','$phone','$image')";
-                $execute_query = mysqli_query($connexion, $sql);
-                if ($execute_query) {
-                    header("Location: index.php");
-                }
+            if (valid_name($_POST['nom'])) {
+                $nom = $_POST['nom'];
+            }
+            if (valid_email($_POST['email'])) {
+                $email = $_POST['email'];
+            }
+            if (valid_phone($_POST['phone'])) {
+                $phone = $_POST['phone'];
+            }
+            if (valid_image($_FILES['image'])) {
+                $image = $_FILES['image']['name'];
+                $dossier_site = 'images/' . $image;
+                move_uploaded_file($_FILES['image']['tmp_name'], $dossier_site);
+            }
+            $sql = "INSERT INTO `users`(`id_user`, `nom`, `email`, `phone`, `image`) VALUES (null,'$nom','$email','$phone','$image')";
+            $execute_query = mysqli_query($connexion, $sql);
+            if ($execute_query) {
+                $_SESSION['message'] = "Ajout d'utilisateur réussi";
+                header("Location: index.php");
+
+            } else {
+                $_SESSION['message'] = "Ajout non réussi";
+                header('Location: add.php');
             }
         }
         ?>

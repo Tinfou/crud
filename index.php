@@ -36,6 +36,7 @@ if (!isset($_SESSION['user_logged'])) {
     </div>
     <div class="container">
         <div class="row">
+            <?php include('message.php') ?>
             <table class="table justify-content-center">
                 <thead>
                     <tr class="table-primary text-center">

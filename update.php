@@ -40,14 +40,11 @@ if (!isset($_SESSION['user_logged'])) {
         $result = mysqli_fetch_assoc($execute_query);
     }
     ?>
-    <p>tongasoa
-        <?php echo $_SESSION['user_logged']['nom']; ?>
-    </p>
     <div class="container p-4">
+        <?php include('message.php') ?>
         <div class="d-flex justify-content-center">
             <form class="g-3" action="" method="post" enctype="multipart/form-data">
                 <div class="p-2 col-md-12">
-                    <label class="form-label" for="nom">Nom</label>
                     <input class="form-control" type="text" name="nom" id="nom" value="<?php echo $result['nom'] ?>">
                 </div>
                 <div class="p-2 col-md-12">
@@ -67,7 +64,7 @@ if (!isset($_SESSION['user_logged'])) {
                         id="image">
                 </div>
                 <div class="col-md-12">
-                    <button class="w-100 mt-3 btn btn-warning" type="submit" name="submit">Modifier</button>
+                    <button class="w-100 mt-3 btn btn-warning" type="submit">Modifier</button>
                 </div>
             </form>
         </div>
@@ -78,29 +75,31 @@ if (!isset($_SESSION['user_logged'])) {
 
 <?php
 if (isset($_POST['nom']) && !empty($_POST['nom']) && isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['phone']) && !empty($_POST['phone'])) {
-    if (isset($_POST['submit'])) {
-        if (valid_name($_POST['nom'])) {
-            $nom = $_POST['nom'];
-        }
-        if (valid_email($_POST['email'])) {
-            $email = $_POST['email'];
-        }
-        if (valid_phone($_POST['phone'])) {
-            $phone = $_POST['phone'];
-        }
-        $default_image = $result['image'];
-        if ($default_image) {
-            $image = $default_image;
-        } elseif (valid_image($_FILES['image'])) {
-            $image = $_FILES['image']['name'];
-        }
-        $dossier_site = 'images/' . $image;
-        move_uploaded_file($_FILES['image']['tmp_name'], $dossier_site);
-        $sql = " UPDATE `users` SET `nom`='$nom',`email`='$email',`phone`='$phone',`image`='$image' WHERE id_user = '$id' ";
-        $execute_query = mysqli_query($connexion, $sql);
-        if ($execute_query) {
-            header("Location: index.php");
-        }
+    if (valid_name($_POST['nom'])) {
+        $nom = $_POST['nom'];
+    }
+    if (valid_email($_POST['email'])) {
+        $email = $_POST['email'];
+    }
+    if (valid_phone($_POST['phone'])) {
+        $phone = $_POST['phone'];
+    }
+    $default_image = $result['image'];
+    if ($default_image) {
+        $image = $default_image;
+    } elseif (valid_image($_FILES['image'])) {
+        $image = $_FILES['image']['name'];
+    }
+    $dossier_site = 'images/' . $image;
+    move_uploaded_file($_FILES['image']['tmp_name'], $dossier_site);
+    $sql = " UPDATE `users` SET `nom`='$nom',`email`='$email',`phone`='$phone',`image`='$image' WHERE id_user = '$id' ";
+    $execute_query = mysqli_query($connexion, $sql);
+    if ($execute_query) {
+        $_SESSION['message'] = "Modification terminé";
+        header("Location: index.php");
+    } else {
+        $_SESSION['message'] = "Modification non terminé";
+        header("Location: update.php");
     }
 }
 ?>
