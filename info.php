@@ -60,7 +60,7 @@ if (!isset($_SESSION['user_logged'])) {
                     <hr>
                 </div>
                 <div class="d-flex justify-content-center ">
-                    <a class="w-25 btn btn-danger " href="index.php">retour</a>
+                    <a class="w-25 btn btn-success" href="index.php">retour</a>
                 </div>
             </div>
         </div>
