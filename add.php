@@ -21,19 +21,8 @@ if (!isset($_SESSION['user_logged'])) {
 </head>
 
 <body>
-    <div class="fluid">
-        <div class="bg-primary text-center">
-            <h3 class="p-2">CRUD PHP</h3>
-        </div>
-    </div>
-    <div class="container p-2">
-        <nav>
-            <ul class="nav">
-                <li><a class="nav-link" href="index.php">Listes des utilisateurs</a></li>
-                <li><a class="nav-link" href="add.php">Ajouter des utilisateurs</a></li>
-            </ul>
-        </nav>
-    </div>
+    <?php include('header.html'); ?>
+    <?php include('navbar.html'); ?>
     <?php include('message.php') ?>
     <div class="container p-4">
 

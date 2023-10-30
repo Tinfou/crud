@@ -12,11 +12,7 @@ require 'db_connect.php'; ?>
 </head>
 
 <body>
-    <div class="fluid">
-        <div class="bg-primary text-center">
-            <h3 class="p-2">CRUD PHP</h3>
-        </div>
-    </div>
+    <?php include('header.html'); ?>
     <div class="container p-4">
         <div class="d-flex justify-content-center">
             <form class="g-3" action="login.php" method="post" enctype="multipart/form-data">
