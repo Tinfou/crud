@@ -21,7 +21,7 @@ if (!isset($_SESSION['user_logged'])) {
 <body>
     <div class="card">
         <?php include('header\header.html'); ?>
-        <?php include('header\navbar.html'); ?>
+        <?php include('header\navbar.php'); ?>
         <?php
         if (isset($_GET['id_user'])):
             $id = $_GET['id_user'];

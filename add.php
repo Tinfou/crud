@@ -23,7 +23,7 @@ if (!isset($_SESSION['user_logged'])) {
 <body>
     <div class="card">
         <?php include('header\header.html'); ?>
-        <?php include('header\navbar.html'); ?>
+        <?php include('header\navbar.php'); ?>
         <div class="card-body">
             <?php include('message.php') ?>
             <div class="container p-4">
