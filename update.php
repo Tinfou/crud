@@ -19,51 +19,58 @@ if (!isset($_SESSION['user_logged'])) {
 </head>
 
 <body>
-    <?php include('header.html'); ?>
-    <?php include('navbar.html'); ?>
-    <?php
-    if (isset($_GET['id_user'])):
-        $id = $_GET['id_user'];
-        $sql = "SELECT * FROM users where id_user = $id ";
-        $execute_query = mysqli_query($connexion, $sql);
-        $result = mysqli_fetch_assoc($execute_query);
-        ?>
-        <div class="container">
-            <?php include('message.php') ?>
-            <div class="d-flex justify-content-center">
-                <form class="g-3" action="update.php?id_user=<?php echo $id;?>" method="post" enctype="multipart/form-data">
-                <div class="p-2 col-md-12">
-                        <a class="w-100 mt-3 btn btn-danger"href="index">Retour</a>
+    <div class="card">
+        <?php include('header\header.html'); ?>
+        <?php include('header\navbar.html'); ?>
+        <?php
+        if (isset($_GET['id_user'])):
+            $id = $_GET['id_user'];
+            $sql = "SELECT * FROM users where id_user = $id ";
+            $execute_query = mysqli_query($connexion, $sql);
+            $result = mysqli_fetch_assoc($execute_query);
+            ?>
+            <div class="card-body">
+                <div class="container">
+                    <?php include('message.php') ?>
+                    <div class="d-flex justify-content-center">
+                        <form class="g-3" action="update.php?id_user=<?php echo $id; ?>" method="post"
+                            enctype="multipart/form-data">
+                            <div class="p-2 col-md-12">
+                                <a class="w-100 mt-3 btn btn-danger" href="index">Retour</a>
+                            </div>
+                            <div class="p-2 col-md-12">
+                                <input class="form-control" type="text" name="nom" id="nom"
+                                    value="<?php echo $result['nom'] ?>" required>
+                            </div>
+                            <div class="p-2 col-md-12">
+                                <label class="form-label" for="email">Email</label>
+                                <input class="form-control" type="email" name="email" id="email" required
+                                    value="<?php echo $result['email'] ?>">
+                            </div>
+                            <div class="p-2 col-md-12">
+                                <label class="form-label" for="phone">Phone</label>
+                                <input class="form-control" type="text" name="phone" id="phone" required
+                                    value="<?php echo $result['phone'] ?>">
+                            </div>
+                            <div class="p-2 col-md-12 text-center">
+                                <label class="form-label" for="image">Photo de profil</label>
+                                <img class="rounded mx-auto d-block mb-2" src="images/<?php echo $result['image']; ?>"
+                                    style="width: 60px; height: 60px;"><input class="form-control" type="file" name="image"
+                                    id="image">
+                            </div>
+                            <div class="col-md-12">
+                                <button class="w-100 mt-3 btn btn-success" type="submit" name="submit">Modifier</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="p-2 col-md-12">
-                        <input class="form-control" type="text" name="nom" id="nom" value="<?php echo $result['nom'] ?>" required>
-                    </div>
-                    <div class="p-2 col-md-12">
-                        <label class="form-label" for="email">Email</label>
-                        <input class="form-control" type="email" name="email" id="email" required
-                            value="<?php echo $result['email'] ?>">
-                    </div>
-                    <div class="p-2 col-md-12">
-                        <label class="form-label" for="phone">Phone</label>
-                        <input class="form-control" type="text" name="phone" id="phone" required
-                            value="<?php echo $result['phone'] ?>">
-                    </div>
-                    <div class="p-2 col-md-12 text-center">
-                        <label class="form-label" for="image">Photo de profil</label>
-                        <img class="rounded mx-auto d-block mb-2" src="images/<?php echo $result['image']; ?>"
-                            style="width: 60px; height: 60px;"><input class="form-control" type="file" name="image"
-                            id="image">
-                    </div>
-                    <div class="col-md-12">
-                        <button class="w-100 mt-3 btn btn-success" type="submit" name="submit">Modifier</button>
-                    </div>
-                    
-                    
-                </form>
+                </div>
             </div>
-        </div>
-    <?php endif; ?>
+            <?php include('header\footer.html') ?>
+        <?php endif; ?>
+    </div>
+    <script src="assets\js\bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
 
 <?php
@@ -92,15 +99,14 @@ if (isset($_POST['submit'])) {
                 $_SESSION['message'] = "Modification terminé";
                 header("Location: index.php");
             }
-        }
-        else {
+        } else {
             $_SESSION['message_erreur'] = "Modification non terminé";
-            header("Location: update.php?id_user=".$id);    
-        } 
-       
-        
+            header("Location: update.php?id_user=" . $id);
+        }
+
+
     }
-    
-    
+
+
 }
 ?>
