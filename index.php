@@ -8,6 +8,15 @@ if (!isset($_SESSION['user_logged'])) {
     header('Location: login.php');
 }
 ?>
+<?php
+$sql = 'SELECT COUNT(*) as nbr_id_user FROM `users`;';
+$execute_query = mysqli_query($connexion, $sql);
+$result = mysqli_fetch_assoc($execute_query);
+$nbr_element_page = 4;
+$nbr_page = ceil($result['nbr_id_user'] / $nbr_element_page);
+@$page = $_GET["page"];
+$debut = ($page - 1) * $nbr_element_page;
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -38,7 +47,7 @@ if (!isset($_SESSION['user_logged'])) {
                         </thead>
                         <tbody>
                             <?php
-                            $sql = "select * from users";
+                            $sql = "SELECT * FROM `users` LIMIT $debut,$nbr_element_page";
                             $execute_query = mysqli_query($connexion, $sql);
                             while ($result = mysqli_fetch_assoc($execute_query)) {
                                 ?>
@@ -68,6 +77,23 @@ if (!isset($_SESSION['user_logged'])) {
                             }
                             ?>
                     </table>
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item <?php echo $page <= 1 ? 'disabled' : ''; ?>">
+                                <a class="page-link" href="?page=<?php echo $page - 1; ?>">Précendent</a>
+                            </li>
+                            <?php for ($i = 1; $i <= $nbr_page; $i++) { ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="index.php?page=<?php echo $i ?>">
+                                        <?php echo $i ?>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                            <li class="page-item <?php echo $page >= $nbr_page ? 'disabled' : ''; ?>">
+                                <a class="page-link" href="?page=<?php echo $page + 1; ?>">Suivant</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
